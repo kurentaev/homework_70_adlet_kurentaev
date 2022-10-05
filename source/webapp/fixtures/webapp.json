@@ -1,0 +1,42 @@
+[
+{
+  "model": "webapp.taskslist",
+  "pk": 35,
+  "fields": {
+    "title": "Lesson #53. Homework",
+    "status": "new",
+    "deadline": "2022-09-23",
+    "description": "Add a field for a detailed description to the task model - a text field (TextField), may be empty.\r\n\r\nCreate a migration and apply it.\r\n\r\nFill in the new field in the existing tasks with some descriptions and update the fixture."
+  }
+},
+{
+  "model": "webapp.taskslist",
+  "pk": 36,
+  "fields": {
+    "title": "Lesson #52. Homework",
+    "status": "new",
+    "deadline": "2022-09-20",
+    "description": "the task id for this page should be passed as part of the path, not in the query string.\r\n\r\nThere is no need to display a detailed description on the main page.\r\n\r\nAdd links to go from the tasks on the main page to the detailed view page."
+  }
+},
+{
+  "model": "webapp.taskslist",
+  "pk": 37,
+  "fields": {
+    "title": "Lesson #51. Homework",
+    "status": "new",
+    "deadline": "2022-09-16",
+    "description": "Set names for all urls and replace all links on the site with the generation using the reverse function and the {%url%} tag. \r\n\r\nTo redirect from forms, use the redirect function.\r\n\r\nAdd a basic template and a navigation bar."
+  }
+},
+{
+  "model": "webapp.taskslist",
+  "pk": 38,
+  "fields": {
+    "title": "Lesson #54. Homework",
+    "status": "new",
+    "deadline": null,
+    "description": ""
+  }
+}
+]
