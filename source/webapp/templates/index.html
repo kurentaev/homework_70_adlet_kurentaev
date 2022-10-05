@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+      <main role="main" class="inner cover">
+        <p class="lead">
+            {% for task in tasks %}
+            <h2>Task: {{ task.summary }}</h2>
+            <h2>Task: {{ task.description }}</h2>
+            <h2>Task: {{ task.status }}</h2>
+            <h2>Task: {{ task.type }}</h2>
+            <hr>
+            {% endfor %}
+        </p>
+      </main>
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>Kurentaev Adlet <a href="/">Contacts</a></p>
+        </div>
+      </footer>
+{% endblock %}

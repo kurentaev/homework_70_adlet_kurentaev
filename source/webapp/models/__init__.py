@@ -1,4 +1,4 @@
-from .articles import Article
-from .comments import Comment
-from .tags import Tag
-
+from .base import BaseModel
+from .tasks import Tasks
+from .statuses import Statuses
+from .types import Types

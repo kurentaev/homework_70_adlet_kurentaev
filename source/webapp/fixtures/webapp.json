@@ -1,42 +1,146 @@
 [
 {
-  "model": "webapp.taskslist",
-  "pk": 35,
+  "model": "webapp.tasks",
+  "pk": 2,
   "fields": {
-    "title": "Lesson #53. Homework",
-    "status": "new",
-    "deadline": "2022-09-23",
-    "description": "Add a field for a detailed description to the task model - a text field (TextField), may be empty.\r\n\r\nCreate a migration and apply it.\r\n\r\nFill in the new field in the existing tasks with some descriptions and update the fixture."
+    "created_at": "2022-10-05T11:26:56.378Z",
+    "updated_at": "2022-10-05T11:36:05.385Z",
+    "summary": "Create superuser",
+    "description": "Create superuser, username: root,\r\npassword: root.",
+    "status": 1,
+    "type": 1
   }
 },
 {
-  "model": "webapp.taskslist",
-  "pk": 36,
+  "model": "webapp.tasks",
+  "pk": 3,
   "fields": {
-    "title": "Lesson #52. Homework",
-    "status": "new",
-    "deadline": "2022-09-20",
-    "description": "the task id for this page should be passed as part of the path, not in the query string.\r\n\r\nThere is no need to display a detailed description on the main page.\r\n\r\nAdd links to go from the tasks on the main page to the detailed view page."
+    "created_at": "2022-10-05T11:27:58.272Z",
+    "updated_at": "2022-10-05T11:27:58.272Z",
+    "summary": "Fix IndexView",
+    "description": "IndexView works with bugs.",
+    "status": 2,
+    "type": 2
   }
 },
 {
-  "model": "webapp.taskslist",
-  "pk": 37,
+  "model": "webapp.tasks",
+  "pk": 4,
   "fields": {
-    "title": "Lesson #51. Homework",
-    "status": "new",
-    "deadline": "2022-09-16",
-    "description": "Set names for all urls and replace all links on the site with the generation using the reverse function and the {%url%} tag. \r\n\r\nTo redirect from forms, use the redirect function.\r\n\r\nAdd a basic template and a navigation bar."
+    "created_at": "2022-10-05T11:30:14.474Z",
+    "updated_at": "2022-10-05T11:30:14.476Z",
+    "summary": "Shorten the code in the file views.py",
+    "description": "Too many unnecessary lines.",
+    "status": 3,
+    "type": 3
   }
 },
 {
-  "model": "webapp.taskslist",
-  "pk": 38,
+  "model": "webapp.tasks",
+  "pk": 5,
   "fields": {
-    "title": "Lesson #54. Homework",
-    "status": "new",
-    "deadline": null,
-    "description": ""
+    "created_at": "2022-10-05T11:32:09.667Z",
+    "updated_at": "2022-10-05T11:32:09.668Z",
+    "summary": "Fill in the database with data",
+    "description": "Fill the database with test data to check the system's operability",
+    "status": 1,
+    "type": 1
+  }
+},
+{
+  "model": "webapp.tasks",
+  "pk": 6,
+  "fields": {
+    "created_at": "2022-10-05T11:33:04.092Z",
+    "updated_at": "2022-10-05T11:33:04.092Z",
+    "summary": "Fix ValidateError",
+    "description": "Fix ValidateError in forms",
+    "status": 2,
+    "type": 2
+  }
+},
+{
+  "model": "webapp.tasks",
+  "pk": 7,
+  "fields": {
+    "created_at": "2022-10-05T11:35:09.989Z",
+    "updated_at": "2022-10-05T11:35:09.989Z",
+    "summary": "Configure the user interface",
+    "description": "Configure the crawler interface, the current location of the page elements is inconvenient",
+    "status": 3,
+    "type": 3
+  }
+},
+{
+  "model": "webapp.statuses",
+  "pk": 1,
+  "fields": {
+    "created_at": "2022-10-05T00:00:00Z",
+    "updated_at": "2022-10-05T00:00:00Z",
+    "status_name": "New"
+  }
+},
+{
+  "model": "webapp.statuses",
+  "pk": 2,
+  "fields": {
+    "created_at": "2022-10-05T00:00:00Z",
+    "updated_at": "2022-10-05T00:00:00Z",
+    "status_name": "In progress"
+  }
+},
+{
+  "model": "webapp.statuses",
+  "pk": 3,
+  "fields": {
+    "created_at": "2022-10-05T00:00:00Z",
+    "updated_at": "2022-10-05T00:00:00Z",
+    "status_name": "Done"
+  }
+},
+{
+  "model": "webapp.types",
+  "pk": 1,
+  "fields": {
+    "created_at": "2022-10-05T00:00:00Z",
+    "updated_at": "2022-10-05T00:00:00Z",
+    "type_name": "Task"
+  }
+},
+{
+  "model": "webapp.types",
+  "pk": 2,
+  "fields": {
+    "created_at": "2022-10-05T00:00:00Z",
+    "updated_at": "2022-10-05T00:00:00Z",
+    "type_name": "Bug"
+  }
+},
+{
+  "model": "webapp.types",
+  "pk": 3,
+  "fields": {
+    "created_at": "2022-10-05T00:00:00Z",
+    "updated_at": "2022-10-05T00:00:00Z",
+    "type_name": "Enhancement"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$hZkm2VHClTqoC8SGvh6Vlq$stltiQSEnwzBh5VEhmWQ415PL9vjFjmMe3HoZSayBQ0=",
+    "last_login": "2022-10-05T11:18:17.740Z",
+    "is_superuser": true,
+    "username": "root",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-10-05T11:17:55.473Z",
+    "groups": [],
+    "user_permissions": []
   }
 }
 ]
