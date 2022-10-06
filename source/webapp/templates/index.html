@@ -5,9 +5,10 @@
         <p class="lead">
             {% for task in tasks %}
             <h2>Task: {{ task.summary }}</h2>
-            <h2>Task: {{ task.description }}</h2>
-            <h2>Task: {{ task.status }}</h2>
-            <h2>Task: {{ task.type }}</h2>
+            <h2>Status: {{ task.status }}</h2>
+            <h2>Type: {{ task.type }}</h2>
+            <a href="{% url 'todo_detail' task.pk %}">Task detail</a>
+            <a href="{% url 'index' %}">Task delete</a>
             <hr>
             {% endfor %}
         </p>

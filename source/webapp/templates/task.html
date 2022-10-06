@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ task.title }}
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block content %}
+    <h2>Task: {{ task.summary }}</h2>
+    <h2>Description: {{ task.description }}</h2>
+    <h2>Status: {{ task.status }}</h2>
+    <h2>Type: {{ task.type }}</h2>
+    <a href="{% url 'index' %}">Article update</a>
+    <a href="{% url 'index' %}">Article delete</a>
+{% endblock %}
