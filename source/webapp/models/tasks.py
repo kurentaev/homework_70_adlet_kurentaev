@@ -21,11 +21,10 @@ class Tasks(BaseModel):
         on_delete=models.PROTECT,
         verbose_name='Status'
     )
-    type = models.ForeignKey(
+    type = models.ManyToManyField(
         to='webapp.Types',
         related_name='type',
-        on_delete=models.PROTECT,
-        verbose_name='Type'
+        blank=True
     )
 
     def __str__(self):

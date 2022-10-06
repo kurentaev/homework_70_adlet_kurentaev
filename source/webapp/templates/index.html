@@ -6,9 +6,13 @@
             {% for task in tasks %}
             <h2>Task: {{ task.summary }}</h2>
             <h2>Status: {{ task.status }}</h2>
-            <h2>Type: {{ task.type }}</h2>
-            <a href="{% url 'todo_detail' task.pk %}">Task detail</a>
-            <a href="{% url 'todo_delete' task.pk %}">Task delete</a>
+            <h2>Type:
+            {% for type in task.type.all %}
+                {{ type.type_name }}{% if not forloop.last %},
+                {% endif %}
+            {% endfor %}</h2>
+            <a class="mx-2" href="{% url 'todo_detail' task.pk %}">Detail view</a>
+            <a href="{% url 'todo_delete' task.pk %}">Delete task</a>
             <hr>
             {% endfor %}
         </p>

@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{{ task.title }}
+{{ task.summary }}
 {% endblock %}
 
 {% block menu %}
 {% endblock %}
 
 {% block content %}
-    <h2>Task: {{ task.summary }}</h2>
-    <h2>Description: {{ task.description }}</h2>
+    <h2 class="mt-2">Task: {{ task.summary }}</h2>
+    <h2>Description: {{ task.description | linebreaks}}</h2>
     <h2>Status: {{ task.status }}</h2>
-    <h2>Type: {{ task.type }}</h2>
-    <a href="{% url 'todo_update' task.pk %}">Task update</a>
+    <h2>Type:
+    {% for type in task.type.all %}
+        {{ type.type_name }}{% if not forloop.last %},
+        {% endif %}
+    {% endfor %}</h2>
+    <a class="mx-2" href="{% url 'todo_update' task.pk %}">Task update</a>
     <a href="{% url 'todo_delete' task.pk %}">Task delete</a>
 {% endblock %}

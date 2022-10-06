@@ -5,12 +5,14 @@ from webapp.models import Tasks, Statuses, Types
 
 
 class TasksListForm(forms.ModelForm):
-    status = forms.ModelChoiceField(required=False, label='Status', queryset=Statuses.objects.all())
-    type = forms.ModelChoiceField(required=False, label='Type', queryset=Types.objects.all())
+    status = forms.ModelChoiceField(required=True, label='Status', queryset=Statuses.objects.all())
 
     class Meta:
         model = Tasks
         fields = ('summary', 'description', 'status', 'type')
+        widgets = {
+            'type': widgets.CheckboxSelectMultiple
+        }
 
     def clean_title(self):
         title = self.cleaned_data.get('summary')
