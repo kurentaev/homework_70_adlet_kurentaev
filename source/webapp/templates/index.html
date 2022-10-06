@@ -8,7 +8,7 @@
             <h2>Status: {{ task.status }}</h2>
             <h2>Type: {{ task.type }}</h2>
             <a href="{% url 'todo_detail' task.pk %}">Task detail</a>
-            <a href="{% url 'index' %}">Task delete</a>
+            <a href="{% url 'todo_delete' task.pk %}">Task delete</a>
             <hr>
             {% endfor %}
         </p>

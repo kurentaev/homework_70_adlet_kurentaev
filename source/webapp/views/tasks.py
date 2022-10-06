@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, DeleteView
 
 from webapp.models import Tasks
 from webapp.forms import TasksListForm
@@ -54,14 +54,8 @@ class TaskUpdateView(TemplateView):
             return redirect('todo_detail', pk=task.pk)
         return render(request, self.template_name, context={'form': form})
 
-#
-#
-# def delete_view(request, pk):
-#     article = get_object_or_404(Article, pk=pk)
-#     return render(request, 'article_confirm_delete.html', context={'article': article})
-#
-#
-# def confirm_delete(request, pk):
-#     article = get_object_or_404(Article, pk=pk)
-#     article.delete()
-#     return redirect('index')
+
+class DeleteTaskView(DeleteView):
+    template_name = 'task_delete.html'
+    model = Tasks
+    success_url = reverse_lazy('index')

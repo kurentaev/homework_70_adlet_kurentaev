@@ -12,6 +12,6 @@
     <h2>Description: {{ task.description }}</h2>
     <h2>Status: {{ task.status }}</h2>
     <h2>Type: {{ task.type }}</h2>
-    <a href="{% url 'todo_update' task.pk %}">Article update</a>
-    <a href="{% url 'index' %}">Article delete</a>
+    <a href="{% url 'todo_update' task.pk %}">Task update</a>
+    <a href="{% url 'todo_delete' task.pk %}">Task delete</a>
 {% endblock %}
