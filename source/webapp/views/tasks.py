@@ -55,7 +55,7 @@ class TaskUpdateView(TemplateView):
         return render(request, self.template_name, context={'form': form})
 
 
-class DeleteTaskView(DeleteView):
+class TaskDeleteView(DeleteView):
     template_name = 'task_delete.html'
     model = Tasks
     success_url = reverse_lazy('index')
