@@ -24,7 +24,6 @@ class Tasks(BaseModel):
     type = models.ManyToManyField(
         to='webapp.Types',
         related_name='type',
-        null=False,
         blank=False
     )
 
