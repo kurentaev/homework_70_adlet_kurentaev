@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, DeleteView
-
 from webapp.models import Tasks
 from webapp.forms import TasksListForm
 
