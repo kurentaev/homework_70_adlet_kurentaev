@@ -51,7 +51,9 @@ class TaskUpdateView(TemplateView):
         if form.is_valid():
             task = form.save()
             return redirect('todo_detail', pk=task.pk)
-        return render(request, self.template_name, context={'form': form})
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
 
 
 class TaskDeleteView(DeleteView):
