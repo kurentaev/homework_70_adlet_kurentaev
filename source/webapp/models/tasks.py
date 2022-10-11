@@ -1,5 +1,27 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import BaseValidator
 from django.db import models
 from webapp.models.base import BaseModel
+from django.utils.deconstruct import deconstructible
+
+
+def validate_digits_letters(word):
+    for char in word:
+        if not char.isdigit() and not char.isalpha():
+            raise ValidationError('Enter only letters or digits')
+
+
+@deconstructible
+class CustomLengthValidator(BaseValidator):
+    def __init__(self, limit_value=50, message=''):
+        message = 'You enter %(limit_value)s symbols %(show_value)s'
+        super(CustomLengthValidator, self).__init__(limit_value=limit_value, message=message)
+
+    def compare(self, value, max_value):
+        return max_value < value
+
+    def clean(self, value):
+        return len(value)
 
 
 class Tasks(BaseModel):
@@ -7,7 +29,8 @@ class Tasks(BaseModel):
         max_length=200,
         null=False,
         blank=False,
-        verbose_name='Summary'
+        verbose_name='Summary',
+        validators=(CustomLengthValidator(30), validate_digits_letters)
     )
     description = models.TextField(
         max_length=3000,

@@ -5,7 +5,7 @@ Task update
 {% endblock %}
 
 {% block content %}
-<h1>New task</h1>
+<h1>Task update</h1>
     <form action="{% url 'todo_update' task.pk %}" method="POST">
         <div class="form">
             {% include 'partial/task_form.html' with button_text='Edit' %}
