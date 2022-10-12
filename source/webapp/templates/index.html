@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% include 'partial/search.html' %}
       <main role="main" class="inner cover">
         <p class="lead">
+            <h4>{% if tasks|length == 0 %}
+                Tasks not found
+                {% else %}
+                {% endif %}</h4>
             {% for task in tasks %}
             <h2>Task: {{ task.summary }}</h2>
             <h2>Status: {{ task.status }}</h2>
@@ -18,6 +23,9 @@
             <a href="{% url 'todo_delete' task.pk %}">Delete task</a>
             <hr>
             {% endfor %}
+            {% if is_paginated %}
+                {% include 'partial/pagination.html' %}
+            {% endif %}
         </p>
       </main>
 

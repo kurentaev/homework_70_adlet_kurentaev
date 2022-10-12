@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import widgets
 from webapp.models import Tasks, Statuses, Types
 
@@ -21,3 +22,11 @@ class TasksListForm(forms.ModelForm):
     class Meta:
         model = Tasks
         fields = ('summary', 'description', 'status', 'type')
+
+
+class TasksSearchForm(forms.Form):
+    search = forms.CharField(
+        max_length=100,
+        required=False,
+        label='Task search',
+    )
