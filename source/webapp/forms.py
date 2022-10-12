@@ -7,12 +7,17 @@ class TasksListForm(forms.ModelForm):
     status = forms.ModelChoiceField(
         required=True,
         label='Status',
-        queryset=Statuses.objects.all()
+        queryset=Statuses.objects.all(),
+        initial=[0]
+    )
+
+    type = forms.ModelMultipleChoiceField(
+        required=True,
+        label='Type',
+        queryset=Types.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
     )
 
     class Meta:
         model = Tasks
         fields = ('summary', 'description', 'status', 'type')
-        widgets = {
-            'type': widgets.CheckboxSelectMultiple
-        }
