@@ -49,6 +49,14 @@ class Tasks(BaseModel):
         related_name='type',
         blank=False
     )
+    project = models.ForeignKey(
+        to='webapp.Projects',
+        related_name='project',
+        on_delete=models.PROTECT,
+        verbose_name='Project',
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return f"{self.summary} - {self.status} - {self.type}"

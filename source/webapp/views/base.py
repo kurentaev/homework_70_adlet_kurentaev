@@ -12,7 +12,7 @@ class IndexView(ListView):
     ordering = ('-created_at',)
     paginate_by = 10
     paginate_orphans = 1
-    # allow_empty = False
+    allow_empty = False
 
     def get(self, request, *args, **kwargs):
         self.form = self.get_search_form()

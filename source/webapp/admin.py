@@ -1,12 +1,12 @@
 from django.contrib import admin
-from webapp.models import Tasks, Statuses, Types
+from webapp.models import Tasks, Statuses, Types, Projects
 
 
 class TasksAdmin(admin.ModelAdmin):
-    list_display = ['id', 'summary', 'description', 'status']
-    list_filter = ['id', 'summary', 'description', 'status', 'type']
-    search_fields = ['summary', 'description']
-    fields = ['summary', 'description', 'status', 'type', 'created_at', 'updated_at']
+    list_display = ['id', 'summary', 'description', 'status', 'project']
+    list_filter = ['id', 'summary', 'description', 'status', 'type', 'project']
+    search_fields = ['summary', 'description', 'project']
+    fields = ['summary', 'description', 'status', 'type', 'project', 'created_at', 'updated_at']
     readonly_fields = ['id', 'created_at', 'updated_at']
 
 
@@ -33,3 +33,12 @@ class TypesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Types, TypesAdmin)
+
+
+class ProjectsAdmin(admin.ModelAdmin):
+    list_display = ['id', 'start_date', 'end_date', 'summary', 'description']
+    fields = ['start_date', 'end_date', 'summary', 'description']
+    readonly_fields = ['id']
+
+
+admin.site.register(Projects, ProjectsAdmin)

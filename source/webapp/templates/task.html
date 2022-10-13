@@ -11,6 +11,7 @@
     <h2 class="mt-2">Task: {{ task.summary }}</h2>
     <h2>Description: {{ task.description | linebreaks}}</h2>
     <h2>Status: {{ task.status }}</h2>
+    <h2>Project: {{ task.project }}</h2>
     <h2>
     {% if task.type.all|length > 0 %}
         Type:
