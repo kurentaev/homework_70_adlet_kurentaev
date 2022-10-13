@@ -1,59 +1,31 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
-from django.views.generic import TemplateView, DeleteView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from webapp.models import Tasks
 from webapp.forms import TasksListForm
 
 
-class TaskView(TemplateView):
-    template_name = 'task.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task'] = get_object_or_404(Tasks, pk=kwargs['pk'])
-        return context
+class SuccessDetailUrlMixin:
+    def get_success_url(self):
+        return reverse('todo_detail', kwargs={'pk': self.object.pk})
 
 
-class TaskAddView(TemplateView):
+class TaskAddView(SuccessDetailUrlMixin, CreateView):
     template_name = 'task_create.html'
-
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        form = TasksListForm()
-        context['form'] = form
-        return render(request, self.template_name, context)
-
-    def post(self, request, *args, **kwargs):
-        form = TasksListForm(data=request.POST)
-        if form.is_valid():
-            task = form.save()
-            return redirect('todo_detail', pk=task.pk)
-        return render(request, self.template_name, context={'form': form})
+    form_class = TasksListForm
+    model = Tasks
 
 
-class TaskUpdateView(TemplateView):
+class TaskUpdateView(SuccessDetailUrlMixin, UpdateView):
     template_name = 'task_update.html'
+    form_class = TasksListForm
+    model = Tasks
+    context_object_name = 'task'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task'] = get_object_or_404(Tasks, pk=kwargs['pk'])
-        return context
 
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        form = TasksListForm(instance=context['task'])
-        context['form'] = form
-        return self.render_to_response(context)
-
-    def post(self, request, *args, **kwargs):
-        task = get_object_or_404(Tasks, pk=kwargs['pk'])
-        form = TasksListForm(request.POST, instance=task)
-        if form.is_valid():
-            task = form.save()
-            return redirect('todo_detail', pk=task.pk)
-        context = self.get_context_data(**kwargs)
-        context['form'] = form
-        return self.render_to_response(context)
+class TaskView(DetailView):
+    template_name = 'task.html'
+    model = Tasks
+    context_object_name = 'task'
 
 
 class TaskDeleteView(DeleteView):

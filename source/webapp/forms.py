@@ -11,7 +11,6 @@ class TasksListForm(forms.ModelForm):
         queryset=Statuses.objects.all(),
         initial=[0]
     )
-
     type = forms.ModelMultipleChoiceField(
         required=True,
         label='Type',

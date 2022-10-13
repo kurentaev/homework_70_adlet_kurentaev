@@ -1,8 +1,10 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import BaseValidator
 from django.db import models
+from django.utils import timezone
 from webapp.models.base import BaseModel
 from django.utils.deconstruct import deconstructible
+from webapp.managers import TaskManager
 
 
 def validate_digits_letters(word):
@@ -57,6 +59,18 @@ class Tasks(BaseModel):
         blank=True,
         null=True
     )
+    is_deleted = models.BooleanField(
+        verbose_name='Deleted',
+        default=False,
+        null=False
+    )
+    deleted_at = models.DateTimeField(
+        verbose_name='Delete time',
+        null=True,
+        default=None
+    )
+
+    objects = TaskManager()
 
     def __str__(self):
         return f"{self.summary} - {self.status} - {self.type}"
@@ -65,3 +79,8 @@ class Tasks(BaseModel):
         db_table = "tasks"
         verbose_name = 'Task'
         verbose_name_plural = 'Tasks'
+
+    def delete(self, using=None, keep_parents=False):
+        self.deleted_at = timezone.now()
+        self.is_deleted = True
+        self.save()
