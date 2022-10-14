@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+
+{% block menu %}
+<a class="nav-link active" href="{% url 'todo_add' %}">Task add</a>
+<a class="nav-link active" href="{% url 'projects' %}">Projects</a>
+{% endblock %}
+
 {% block content %}
     {% include 'partial/search.html' %}
       <main role="main" class="inner cover">
@@ -9,20 +15,28 @@
                 {% else %}
                 {% endif %}</h4>
             {% for task in tasks %}
-            <h2>Task: {{ task.summary }}</h2>
-            <h2>Status: {{ task.status }}</h2>
-            <h2>Project: {{ task.project }}</h2>
-            <h2>{% if task.type.all|length > 0 %}
-                Type:
-                {% else %}
-                {% endif %}
-            {% for type in task.type.all %}
-                {{ type.type_name }}{% if not forloop.last %},
-                {% endif %}
-            {% endfor %}</h2>
-            <a class="mx-2" href="{% url 'todo_detail' task.pk %}">Detail view</a>
-            <a href="{% url 'todo_delete' task.pk %}">Delete task</a>
-            <hr>
+              <div class="card task mb-3">
+                <div class="card-body">
+                    <h2>Task: {{ task.summary }}</h2>
+                    <h2>Status: {{ task.status }}</h2>
+                    <h2>
+                        {% if task.project == None %}
+                        {% else %}
+                            Project: {{ task.project }}
+                        {% endif %}
+                    </h2>
+                    <h2>{% if task.type.all|length > 0 %}
+                        Type:
+                        {% else %}
+                        {% endif %}
+                    {% for type in task.type.all %}
+                        {{ type.type_name }}{% if not forloop.last %},
+                        {% endif %}
+                    {% endfor %}</h2>
+                    <a class="mx-2" href="{% url 'todo_detail' task.pk %}">Detail view</a>
+                    <a href="{% url 'todo_delete' task.pk %}">Delete task</a>
+                </div>
+              </div>
             {% endfor %}
             {% if is_paginated %}
                 {% include 'partial/pagination.html' %}

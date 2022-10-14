@@ -13,7 +13,6 @@ class TaskProjectManager(Manager):
         return self.get_queryset().all()
 
     def all(self):
-        # return self.get_queryset().all()
         return self.get_queryset().filter(is_deleted=False)
 
     def get_queryset(self):

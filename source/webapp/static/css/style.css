@@ -161,3 +161,11 @@ body {
     text-align: center;
     border: solid 1px gray;
 }
+
+.task {
+    background: #90bdeb;
+}
+
+.project {
+    background: #3a5c7e;
+}

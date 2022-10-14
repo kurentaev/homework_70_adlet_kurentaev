@@ -1,37 +1,46 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{{ project.summary }}
+{{ projects.summary }}
 {% endblock %}
 
 {% block menu %}
+<a class="nav-link active" href="{% url 'project_add' %}">Project add</a>
+<a class="nav-link active" href="{% url 'projects' %}">Projects</a>
 {% endblock %}
 
 {% block content %}
-    <a class="mx-2" href="{% url 'project_todo_add' projects.pk %}">Task add</a>
-
-    <h2>Summary: {{ projects.summary }}</h2>
-    <h2>Description: {{ projects.description }}</h2>
-    <h2>Start date: {{ projects.start_date }}</h2>
-    <h2>End date: {{ projects.end_date }}</h2>
-    <a class="mx-2" href="{% url 'project_update' projects.pk %}">Project update</a>
-    <a class="mx-2" href="{% url 'project_delete' projects.pk %}">Project delete</a>
-    <hr>
-
-    {% for task in tasks %}
-            <h2>Task: {{ task.summary }}</h2>
-            <h2>Status: {{ task.status }}</h2>
-            <h2>{% if task.type.all|length > 0 %}
-                Type:
+    <div class="card project mb-4">
+        <div class="card-body">
+            <h2>Project: {{ projects.summary }}</h2>
+            <h2>Description: {{ projects.description | linebreaks }}</h2>
+            <h2>Start date: {{ projects.start_date }}</h2>
+            <h2>{% if projects.end_date == None %}
                 {% else %}
+                End date: {{ projects.end_date }}
                 {% endif %}
-            {% for type in task.type.all %}
-                {{ type.type_name }}{% if not forloop.last %},
-                {% endif %}
-            {% endfor %}</h2>
-            <a class="mx-2" href="{% url 'todo_detail' task.pk %}">Detail view</a>
-            <a href="{% url 'todo_delete' task.pk %}">Delete task</a>
-            <hr>
-            {% endfor %}
-
+            </h2>
+            <a class="mx-2" href="{% url 'project_update' projects.pk %}">Project update</a>
+            <a class="mx-2" href="{% url 'project_delete' projects.pk %}">Project delete</a>
+            <a class="mx-2" href="{% url 'project_todo_add' projects.pk %}">Add task</a>
+        </div>
+    </div>
+    {% for task in tasks %}
+        <div class="card task mb-3">
+            <div class="card-body">
+                <h2>Task: {{ task.summary }}</h2>
+                <h2>Status: {{ task.status }}</h2>
+                <h2>{% if task.type.all|length > 0 %}
+                    Type:
+                    {% else %}
+                    {% endif %}
+                    {% for type in task.type.all %}
+                    {{ type.type_name }}{% if not forloop.last %},
+                    {% endif %}
+                    {% endfor %}</h2>
+                <a class="mx-2" href="{% url 'todo_detail' task.pk %}">Detail view</a>
+                <a href="{% url 'todo_delete' task.pk %}">Delete task</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

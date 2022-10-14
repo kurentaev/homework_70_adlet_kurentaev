@@ -1,7 +1,6 @@
 from django import forms
-from django.core.exceptions import ValidationError
-from django.forms import widgets
 from webapp.models import Tasks, Statuses, Types, Projects
+from webapp.widgets import DatePickerInput
 
 
 class TasksListForm(forms.ModelForm):
@@ -28,11 +27,11 @@ class TasksListForm(forms.ModelForm):
         fields = ('summary', 'description', 'status', 'type', 'project')
 
 
-class TasksSearchForm(forms.Form):
+class SearchForm(forms.Form):
     search = forms.CharField(
         max_length=100,
         required=False,
-        label='Task search',
+        label='Search',
     )
 
 
@@ -40,6 +39,10 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Projects
         fields = ('summary', 'description', 'start_date', 'end_date')
+        widgets = {
+            'start_date': DatePickerInput(),
+            'end_date': DatePickerInput()
+        }
 
 
 class ProjectTasksForm(forms.ModelForm):
