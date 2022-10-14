@@ -15,6 +15,7 @@
     <h2>Start date: {{ projects.start_date }}</h2>
     <h2>End date: {{ projects.end_date }}</h2>
     <a class="mx-2" href="{% url 'project_update' projects.pk %}">Project update</a>
+    <a class="mx-2" href="{% url 'project_delete' projects.pk %}">Project delete</a>
     <hr>
 
     {% for task in tasks %}

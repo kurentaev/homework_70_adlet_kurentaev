@@ -18,10 +18,9 @@ class TasksListForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
     )
     project = forms.ModelChoiceField(
-        required=True,
+        required=False,
         label='Project',
         queryset=Projects.objects.all(),
-        initial=[0]
     )
 
     class Meta:

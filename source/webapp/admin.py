@@ -36,8 +36,8 @@ admin.site.register(Types, TypesAdmin)
 
 
 class ProjectsAdmin(admin.ModelAdmin):
-    list_display = ['id', 'start_date', 'end_date', 'summary', 'description']
-    fields = ['start_date', 'end_date', 'summary', 'description']
+    list_display = ['id', 'start_date', 'end_date', 'summary', 'description', 'is_deleted']
+    fields = ['start_date', 'end_date', 'summary', 'description', 'is_deleted']
     readonly_fields = ['id']
 
 

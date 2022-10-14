@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 from webapp.models.base import BaseModel
 from django.utils.deconstruct import deconstructible
-from webapp.managers import TaskManager
+from webapp.managers import TaskProjectManager
 
 
 def validate_digits_letters(word):
@@ -54,7 +54,7 @@ class Tasks(BaseModel):
     project = models.ForeignKey(
         to='webapp.Projects',
         related_name='tasks',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         verbose_name='Project',
         blank=True,
         null=True
@@ -70,7 +70,7 @@ class Tasks(BaseModel):
         default=None
     )
 
-    objects = TaskManager()
+    objects = TaskProjectManager()
 
     def __str__(self):
         return f"{self.summary} - {self.status} - {self.type}"
