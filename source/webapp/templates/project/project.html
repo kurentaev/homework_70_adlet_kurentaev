@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ project.summary }}
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block content %}
+    <a class="mx-2" href="{% url 'project_todo_add' projects.pk %}">Task add</a>
+
+    <h2>Summary: {{ projects.summary }}</h2>
+    <h2>Description: {{ projects.description }}</h2>
+    <h2>Start date: {{ projects.start_date }}</h2>
+    <h2>End date: {{ projects.end_date }}</h2>
+    <a class="mx-2" href="{% url 'project_update' projects.pk %}">Project update</a>
+    <hr>
+
+    {% for task in tasks %}
+            <h2>Task: {{ task.summary }}</h2>
+            <h2>Status: {{ task.status }}</h2>
+            <h2>{% if task.type.all|length > 0 %}
+                Type:
+                {% else %}
+                {% endif %}
+            {% for type in task.type.all %}
+                {{ type.type_name }}{% if not forloop.last %},
+                {% endif %}
+            {% endfor %}</h2>
+            <a class="mx-2" href="{% url 'todo_detail' task.pk %}">Detail view</a>
+            <a href="{% url 'todo_delete' task.pk %}">Delete task</a>
+            <hr>
+            {% endfor %}
+
+{% endblock %}

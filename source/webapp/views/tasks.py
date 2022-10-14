@@ -10,25 +10,25 @@ class SuccessDetailUrlMixin:
 
 
 class TaskAddView(SuccessDetailUrlMixin, CreateView):
-    template_name = 'task_create.html'
+    template_name = 'task/task_create.html'
     form_class = TasksListForm
     model = Tasks
 
 
 class TaskUpdateView(SuccessDetailUrlMixin, UpdateView):
-    template_name = 'task_update.html'
+    template_name = 'task/task_update.html'
     form_class = TasksListForm
     model = Tasks
     context_object_name = 'task'
 
 
 class TaskView(DetailView):
-    template_name = 'task.html'
+    template_name = 'task/task.html'
     model = Tasks
     context_object_name = 'task'
 
 
 class TaskDeleteView(DeleteView):
-    template_name = 'task_delete.html'
+    template_name = 'task/task_delete.html'
     model = Tasks
     success_url = reverse_lazy('index')

@@ -35,3 +35,28 @@ class TasksSearchForm(forms.Form):
         required=False,
         label='Task search',
     )
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Projects
+        fields = ('summary', 'description', 'start_date', 'end_date')
+
+
+class ProjectTasksForm(forms.ModelForm):
+    status = forms.ModelChoiceField(
+        required=True,
+        label='Status',
+        queryset=Statuses.objects.all(),
+        initial=[0]
+    )
+    type = forms.ModelMultipleChoiceField(
+        required=True,
+        label='Type',
+        queryset=Types.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
+    class Meta:
+        model = Tasks
+        fields = ('summary', 'description', 'status', 'type')

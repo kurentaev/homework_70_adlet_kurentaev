@@ -53,7 +53,7 @@ class Tasks(BaseModel):
     )
     project = models.ForeignKey(
         to='webapp.Projects',
-        related_name='project',
+        related_name='tasks',
         on_delete=models.PROTECT,
         verbose_name='Project',
         blank=True,
