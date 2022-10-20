@@ -4,10 +4,6 @@
 Project update
 {% endblock %}
 
-{% block menu %}
-<a class="nav-link active" href="{% url 'projects' %}">Projects</a>
-{% endblock %}
-
 {% block content %}
 <h1>Project update</h1>
     <form action="{% url 'project_update' project.pk %}" method="POST">

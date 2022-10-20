@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block menu %}
+{% if user.is_authenticated %}
 <a class="nav-link active" href="{% url 'project_add' %}">Project add</a>
-<a class="nav-link active" href="{% url 'projects' %}">Projects</a>
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -20,9 +21,11 @@
                 End date: {{ projects.end_date }}
                 {% endif %}
             </h2>
-            <a class="mx-2" href="{% url 'project_update' projects.pk %}">Project update</a>
-            <a class="mx-2" href="{% url 'project_delete' projects.pk %}">Project delete</a>
-            <a class="mx-2" href="{% url 'project_todo_add' projects.pk %}">Add task</a>
+            {% if user.is_authenticated %}
+                <a class="mx-2" href="{% url 'project_update' projects.pk %}">Project update</a>
+                <a class="mx-2" href="{% url 'project_delete' projects.pk %}">Project delete</a>
+                <a class="mx-2" href="{% url 'project_todo_add' projects.pk %}">Add task</a>
+            {% endif %}
         </div>
     </div>
     {% for task in tasks %}
@@ -39,7 +42,9 @@
                     {% endif %}
                     {% endfor %}</h2>
                 <a class="mx-2" href="{% url 'todo_detail' task.pk %}">Detail view</a>
+                {% if user.is_authenticated %}
                 <a href="{% url 'todo_delete' task.pk %}">Delete task</a>
+                {% endif %}
             </div>
         </div>
     {% endfor %}

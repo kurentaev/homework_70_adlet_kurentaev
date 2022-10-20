@@ -4,10 +4,6 @@
 Task create
 {% endblock %}
 
-{% block menu %}
-<a class="nav-link active" href="{% url 'projects' %}">Projects</a>
-{% endblock %}
-
 {% block content %}
 <h1>New task</h1>
     <form action="{% url 'todo_add' %}" method="POST">

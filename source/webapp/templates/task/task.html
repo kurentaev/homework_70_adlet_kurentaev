@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block menu %}
-<a class="nav-link active" href="{% url 'projects' %}">Projects</a>
+{% if user.is_authenticated %}
+<a class="nav-link active" href="{% url 'todo_add' %}">Task add</a>
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -27,6 +29,8 @@
         {{ type.type_name }}{% if not forloop.last %},
         {% endif %}
     {% endfor %}</h2>
+    {% if user.is_authenticated %}
     <a class="mx-2" href="{% url 'todo_update' task.pk %}">Task update</a>
     <a href="{% url 'todo_delete' task.pk %}">Task delete</a>
+    {% endif %}
 {% endblock %}
