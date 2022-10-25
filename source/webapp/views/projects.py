@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from webapp.models import Projects, Tasks
-from webapp.forms import ProjectForm, ProjectTasksForm
+from webapp.forms import ProjectForm, ProjectTasksForm, ProjectUserAddForm
 
 
 class ProjectView(DetailView):
@@ -19,6 +19,13 @@ class ProjectView(DetailView):
 class SuccessDetailUrlMixin:
     def get_success_url(self):
         return reverse('project_detail', kwargs={'pk': self.object.pk})
+
+
+# class CustomUserPassesTestMixin(UserPassesTestMixin):
+#     groups = []
+#
+#     def text_func(self):
+#         return self.request.user.groups.filter(name__in=self.groups).exists()
 
 
 class ProjectAddView(SuccessDetailUrlMixin, LoginRequiredMixin, CreateView):
@@ -53,3 +60,18 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Projects
     context_object_name = 'project'
     success_url = reverse_lazy('projects')
+
+
+class ProjectUserAddView(UpdateView):
+    model = Projects
+    template_name = 'project/projects_add_user.html'
+    form_class = ProjectUserAddForm
+
+    def form_valid(self, form):
+        project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
+        task = form.save(commit=False)
+        task.project = project
+        task.save()
+        form.save_m2m()
+        return redirect('project_detail', pk=project.pk)
+

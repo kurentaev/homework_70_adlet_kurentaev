@@ -25,9 +25,51 @@
                 <a class="mx-2" href="{% url 'project_update' projects.pk %}">Project update</a>
                 <a class="mx-2" href="{% url 'project_delete' projects.pk %}">Project delete</a>
                 <a class="mx-2" href="{% url 'project_todo_add' projects.pk %}">Add task</a>
+                <a class="mx-2" href="{% url 'project_add_user' projects.pk %}">Delete or add user</a>
             {% endif %}
         </div>
     </div>
+
+    <div class="container">
+  <h4 class="mb-4">Users list</h4>
+    <div class="table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>First name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in projects.user.all %}
+            <tr>
+              <td class="text">{{ i.username }}</td>
+              <td class="text">{{ i.first_name }}</td>
+              <td class="text">{{ i.email }}</td>
+            </tr>
+          {% empty %}
+          <div class="album py-3 bg-light">
+                  <div class="container">
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="card mb-4 box-shadow">
+                          <div class="card-body">
+                            <h3 class="card-text">The project has no users!</h3>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+          </div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
     {% for task in tasks %}
         <div class="card task mb-3">
             <div class="card-body">

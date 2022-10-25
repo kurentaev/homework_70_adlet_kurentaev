@@ -31,11 +31,16 @@ class Projects(models.Model):
         null=True,
         default=None
     )
-    users = models.ManyToManyField(
+    user = models.ManyToManyField(
         to=User,
         related_name='projects',
         blank=True,
         verbose_name='User'
+    )
+    is_deleted_user = models.BooleanField(
+        verbose_name='Deleted user',
+        default=False,
+        null=False
     )
 
     objects = TaskProjectManager()

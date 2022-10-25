@@ -1,6 +1,8 @@
 from django import forms
+from django.contrib.auth.models import User
 from webapp.models import Tasks, Statuses, Types, Projects
 from webapp.widgets import DatePickerInput
+from django.forms import widgets
 
 
 class TasksListForm(forms.ModelForm):
@@ -21,10 +23,16 @@ class TasksListForm(forms.ModelForm):
         label='Project',
         queryset=Projects.objects.all(),
     )
+    user = forms.ModelMultipleChoiceField(
+        required=True,
+        label='Project',
+        queryset=User.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
 
     class Meta:
         model = Tasks
-        fields = ('summary', 'description', 'status', 'type', 'project')
+        fields = ('summary', 'description', 'status', 'type', 'project', 'user')
 
 
 class SearchForm(forms.Form):
@@ -38,10 +46,11 @@ class SearchForm(forms.Form):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Projects
-        fields = ('summary', 'description', 'start_date', 'end_date')
+        fields = ('summary', 'description', 'start_date', 'end_date', 'user')
         widgets = {
             'start_date': DatePickerInput(),
-            'end_date': DatePickerInput()
+            'end_date': DatePickerInput(),
+            'user': widgets.CheckboxSelectMultiple
         }
 
 
@@ -62,3 +71,12 @@ class ProjectTasksForm(forms.ModelForm):
     class Meta:
         model = Tasks
         fields = ('summary', 'description', 'status', 'type')
+
+
+class ProjectUserAddForm(forms.ModelForm):
+    class Meta:
+        model = Projects
+        fields = ['user']
+        widgets = {
+            'user': forms.CheckboxSelectMultiple
+        }

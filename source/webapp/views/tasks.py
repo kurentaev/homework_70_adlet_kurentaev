@@ -16,14 +16,7 @@ class TaskAddView(SuccessDetailUrlMixin, LoginRequiredMixin, CreateView):
     model = Tasks
 
 
-class CustomUserPassesTestMixin(UserPassesTestMixin):
-    groups = []
-
-    def text_func(self):
-        return self.request.user.groups.filter(name__in=self.groups).exists()
-
-
-class TaskUpdateView(SuccessDetailUrlMixin, CustomUserPassesTestMixin, LoginRequiredMixin, UpdateView):
+class TaskUpdateView(SuccessDetailUrlMixin, LoginRequiredMixin, UpdateView):
     template_name = 'task/task_update.html'
     form_class = TasksListForm
     model = Tasks
