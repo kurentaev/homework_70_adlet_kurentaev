@@ -17,5 +17,5 @@ urlpatterns = [
     path('todo_list/projects/task/add/<int:pk>', ProjectTaskAddView.as_view(), name='project_todo_add'),
     path('delete_project/<int:pk>', ProjectDeleteView.as_view(), name='project_delete'),
     path('todo_list/projects/update/<int:pk>', ProjectUpdateView.as_view(), name='project_update'),
-    path('todo_list/projects/add/user/<int:pk>', ProjectUserAddView.as_view(), name='project_add_user')
+    path('todo_list/projects/add/user/<int:pk>', ProjectUserAddView.as_view(), name='project_add_user'),
 ]

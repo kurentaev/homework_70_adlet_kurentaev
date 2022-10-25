@@ -47,6 +47,6 @@ class RegisterView(CreateView):
             user = form.save()
             login(request, user)
             return redirect('index')
-        contex = {}
-        contex['form'] = form
-        return self.render_to_response(contex)
+        context = {}
+        context['form'] = form
+        return self.render_to_response(context)

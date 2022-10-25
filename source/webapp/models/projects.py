@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.urls import reverse
 from django.utils import timezone
 from webapp.managers import TaskProjectManager
 
@@ -33,7 +32,7 @@ class Projects(models.Model):
     )
     user = models.ManyToManyField(
         to=User,
-        related_name='projects',
+        related_name='Users',
         blank=True,
         verbose_name='User'
     )

@@ -23,16 +23,10 @@ class TasksListForm(forms.ModelForm):
         label='Project',
         queryset=Projects.objects.all(),
     )
-    user = forms.ModelMultipleChoiceField(
-        required=True,
-        label='Project',
-        queryset=User.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-    )
 
     class Meta:
         model = Tasks
-        fields = ('summary', 'description', 'status', 'type', 'project', 'user')
+        fields = ('summary', 'description', 'status', 'type', 'project')
 
 
 class SearchForm(forms.Form):
@@ -46,11 +40,10 @@ class SearchForm(forms.Form):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Projects
-        fields = ('summary', 'description', 'start_date', 'end_date', 'user')
+        fields = ('summary', 'description', 'start_date', 'end_date')
         widgets = {
             'start_date': DatePickerInput(),
             'end_date': DatePickerInput(),
-            'user': widgets.CheckboxSelectMultiple
         }
 
 
