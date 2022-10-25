@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from webapp.models import Tasks
@@ -16,7 +16,14 @@ class TaskAddView(SuccessDetailUrlMixin, LoginRequiredMixin, CreateView):
     model = Tasks
 
 
-class TaskUpdateView(SuccessDetailUrlMixin, LoginRequiredMixin, UpdateView):
+class CustomUserPassesTestMixin(UserPassesTestMixin):
+    groups = []
+
+    def text_func(self):
+        return self.request.user.groups.filter(name__in=self.groups).exists()
+
+
+class TaskUpdateView(SuccessDetailUrlMixin, CustomUserPassesTestMixin, LoginRequiredMixin, UpdateView):
     template_name = 'task/task_update.html'
     form_class = TasksListForm
     model = Tasks

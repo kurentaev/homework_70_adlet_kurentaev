@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -29,6 +30,12 @@ class Projects(models.Model):
         verbose_name='Delete time',
         null=True,
         default=None
+    )
+    users = models.ManyToManyField(
+        to=User,
+        related_name='projects',
+        blank=True,
+        verbose_name='User'
     )
 
     objects = TaskProjectManager()
