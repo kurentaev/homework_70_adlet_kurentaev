@@ -41,4 +41,4 @@ class ProjectsAdmin(admin.ModelAdmin):
     readonly_fields = ['id']
 
 
-admin.site.register(Projects, ProjectsAdmin)
+admin.site.register(Projects)

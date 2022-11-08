@@ -27,8 +27,7 @@ class Projects(models.Model):
     )
     deleted_at = models.DateTimeField(
         verbose_name='Delete time',
-        null=True,
-        default=None
+        auto_now=True
     )
     user = models.ManyToManyField(
         to=User,

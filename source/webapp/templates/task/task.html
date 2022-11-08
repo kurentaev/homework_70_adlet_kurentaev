@@ -30,7 +30,7 @@
         {% endif %}
     {% endfor %}</h2>
     {% if user.is_authenticated %}
-    {% if perms.webapp.change_article %}
+    {% if perms.webapp.change_tasks %}
     <a class="mx-2" href="{% url 'todo_update' task.pk %}">Task update</a>
     {% endif %}
     <a href="{% url 'todo_delete' task.pk %}">Task delete</a>

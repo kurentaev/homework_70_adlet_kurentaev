@@ -21,33 +21,32 @@ class SuccessDetailUrlMixin:
         return reverse('project_detail', kwargs={'pk': self.object.pk})
 
 
-class CustomUserPassesTestMixin(UserPassesTestMixin):
-    groups = []
-
-    def test_func(self):
-        return self.request.user.groups.filter(name__in=self.groups).exists()
-
-
-class ProjectAddView(CustomUserPassesTestMixin, SuccessDetailUrlMixin, LoginRequiredMixin, CreateView):
+class ProjectAddView(PermissionRequiredMixin, SuccessDetailUrlMixin, CreateView):
     template_name = 'project/project_create.html'
     form_class = ProjectForm
     model = Projects
-    groups = ['manager']
+    permission_required = 'webapp.add_projects'
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user.is_superuser
 
 
-class ProjectUpdateView(CustomUserPassesTestMixin, SuccessDetailUrlMixin, LoginRequiredMixin, UpdateView):
+class ProjectUpdateView(PermissionRequiredMixin, SuccessDetailUrlMixin, UpdateView):
     template_name = 'project/project_update.html'
     form_class = ProjectForm
     model = Projects
     context_object_name = 'project'
-    groups = ['manager']
+    permission_required = 'webapp.change_projects'
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user.is_superuser
 
 
-class ProjectTaskAddView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
+class ProjectTaskAddView(PermissionRequiredMixin, CreateView):
     template_name = 'project/project_task_create.html'
     form_class = ProjectTasksForm
     model = Tasks
-    permission_required = 'webapp.add_task'
+    permission_required = 'webapp.add_tasks'
 
     def form_valid(self, form):
         project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
@@ -59,23 +58,26 @@ class ProjectTaskAddView(PermissionRequiredMixin, LoginRequiredMixin, CreateView
 
     def has_permission(self):
         project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
-        return super().has_permission() and self.request.user in project.user.all()
+        return (project.user.filter(username=self.request.user) and super().has_permission() or
+                self.request.user.is_superuser)
 
 
-class ProjectDeleteView(CustomUserPassesTestMixin, LoginRequiredMixin, DeleteView):
+class ProjectDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'project/project_delete.html'
     model = Projects
     context_object_name = 'project'
     success_url = reverse_lazy('projects')
-    groups = ['manager']
+    permission_required = 'webapp.delete_projects'
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user.is_superuser
 
 
-class ProjectUserAddView(CustomUserPassesTestMixin, PermissionRequiredMixin, UpdateView):
+class ProjectUserAddView(PermissionRequiredMixin, UpdateView):
     model = Projects
     template_name = 'project/project_add_user.html'
     form_class = ProjectUserAddForm
-    permission_required = 'webapp.add_task'
-    groups = ['manager', 'lead']
+    permission_required = 'webapp.change_projects'
 
     def form_valid(self, form):
         project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
@@ -86,4 +88,5 @@ class ProjectUserAddView(CustomUserPassesTestMixin, PermissionRequiredMixin, Upd
         return redirect('project_detail', pk=project.pk)
 
     def has_permission(self):
-        return Projects.objects.filter(user=self.request.user, pk=self.get_object().pk) and super().has_permission()
+        return (self.get_object().user.filter(username=self.request.user) and super().has_permission() or
+                self.request.user.is_superuser)
