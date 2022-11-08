@@ -35,6 +35,10 @@
     <a class="mx-2" href="{% url 'todo_update' task.pk %}">Task update</a>
     {% endif %}
     {% endif %}
+    {% if perms.webapp.delete_tasks %}
+    {% if user in task.project.user.all %}
     <a href="{% url 'todo_delete' task.pk %}">Task delete</a>
+    {% endif %}
+    {% endif %}
     {% endif %}
 {% endblock %}
