@@ -66,7 +66,8 @@ class Tasks(BaseModel):
     )
     deleted_at = models.DateTimeField(
         verbose_name='Delete time',
-        auto_now=True
+        null=True,
+        default=None
     )
 
     objects = TaskProjectManager()

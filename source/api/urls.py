@@ -1,7 +1,6 @@
 from django.urls import path
-
-from api.views import ArticleListView
+from api.views import TasksView
 
 urlpatterns = [
-    path('tasks/<int:pk>/', ArticleListView.as_view(), name='articles'),
+    path('tasks/<int:pk>/', TasksView.as_view(), name='tasks'),
 ]
