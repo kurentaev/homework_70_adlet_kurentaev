@@ -37,10 +37,8 @@ class ProjectsSerializer(serializers.ModelSerializer):
             'deleted_at',
             'user',
             'is_deleted_user',
-            'created_at'
         ]
         read_only_fields = [
             'id',
-            'created_at',
             'deleted_at'
         ]
